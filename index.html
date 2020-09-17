@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git pu</title>
+</head>
+<body>
+  <form id="gitform">
+    <input type="text" name="username" placeholder="Full name"/>
+    <input type="email" name="email" placeholder="Email"/>
+    <input type="submit" value="submit" />
+  </form>
+
+  <!-- npm install -g firebase-tools -->
+  <!-- firebase login, firebase init, firebase deploy -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+  
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-database.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyBjU3_Xipz00Qem6lDq2WBHHw4KeVPE2HE",
+      authDomain: "lame-8c469.firebaseapp.com",
+      databaseURL: "https://lame-8c469.firebaseio.com",
+      projectId: "lame-8c469",
+      storageBucket: "lame-8c469.appspot.com",
+      messagingSenderId: "340863933981",
+      appId: "1:340863933981:web:ea94bc143675ad60f1b0f4",
+      measurementId: "G-LN9KE5W39P"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+
+    function saveToFirebase(email, name) {
+      var emailObject = {
+        email: email,
+        name: name
+      };
+
+      firebase.database().ref('client-detials').push().set(emailObject)
+        .then(function (snapshot) {
+          success(); // some success method
+        }, function (error) {
+          console.log('error' + error);
+          error(); // some error method
+        });
+    }
+
+    
+
+    var form = document.getElementById("gitform");
+    
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      console.log(e.target.elements['username'].value);
+      saveToFirebase(e.target.elements['email'].value, e.target.elements['username'].value);
+      console.log("here");
+    });
+    
+  </script>
+</body>
+</html>
