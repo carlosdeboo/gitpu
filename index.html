@@ -55,7 +55,7 @@
       firebase.database().ref('client-detials').push().set(emailObject)
         .then(function (snapshot) {
           //success(); // some success method
-          const dbRefObject = firebase.database().ref().child('obj');
+          const dbRefObject = firebase.database().ref('client-detials').child('obj');
           dbRefObject.on('value', snap => console.log(snap.val()));
         }, function (error) {
           console.log('error' + error);
